@@ -9,7 +9,8 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: register,
     onSuccess: (data) => {
-      login(data.user, data.token);
+      login({ username: data.username, userId: data.userId }, data.token);
+
       navigate("/snippets");
     },
     onError: (err) => {

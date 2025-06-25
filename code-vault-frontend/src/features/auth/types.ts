@@ -1,5 +1,3 @@
-import type { User } from "../../types";
-
 export interface LoginCredentials {
   username: string;
   password: string;
@@ -7,7 +5,9 @@ export interface LoginCredentials {
 
 export interface LoginResponse {
   token: string;
-  user: User;
+  username: string;
+  userId: string;
+  expiry: string;
 }
 
 export interface RegisterCredentials {
@@ -17,5 +17,7 @@ export interface RegisterCredentials {
 }
 export interface RegisterResponse {
   token: string;
-  user: User;
+  username: string;
+  userId: string;
+  expiry: string;
 }

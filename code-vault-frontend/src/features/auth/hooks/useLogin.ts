@@ -9,7 +9,7 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: doLogin,
     onSuccess: (data) => {
-      login(data.user, data.token);
+      login({ username: data.username, userId: data.userId }, data.token);
       navigate("/snippets");
     },
     onError: (err) => {
