@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/button';
 import { SnippetList } from '../features/snippets/components/SnippetList';
 import { useGetAllSnippets } from '../features/snippets/hooks/useGetAllSnippets';
+import { SnippetCreateDialog } from '../features/snippets/components/SnippetCreateDialog';
 
 const SnippetsPage = () => {
   const { data: snippets, isLoading, isError } = useGetAllSnippets();
@@ -18,9 +17,7 @@ const SnippetsPage = () => {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">My Snippets</h1>
-        <Button asChild>
-          <Link to="/snippets/new">Create Snippet</Link>
-        </Button>
+        <SnippetCreateDialog/>
       </div>
       <SnippetList snippets={snippets || []} />
     </div>

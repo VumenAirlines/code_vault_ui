@@ -18,3 +18,21 @@ export interface SnippetDetail {
   updatedAt: string | null;
   tags: string[];
 }
+export interface CreateSnippet {
+  title: string;
+  language: string;
+  content: string;
+  description?: string | null;
+  tags?: string[] | null;
+}
+export interface UpdateSnippet {
+  title?: string;
+  content?: string;
+  language?: string;
+  description?: string | null;
+  tags?: string[];
+}
+export interface UpdateSnippetParams {
+  id: string;
+  data: UpdateSnippet;
+}

@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
-import { getAllSnippets } from "./getAllSnippets";
-import { getSnippetById } from "./getSnippetById";
+import { getAllSnippets } from "./api/getAllSnippets";
+import { getSnippetById } from "./api/getSnippetById";
 
 export const snippetsLoader = (queryClient: QueryClient) => async () => {
   const query = {
