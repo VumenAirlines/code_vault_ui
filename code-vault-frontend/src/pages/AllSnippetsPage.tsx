@@ -2,9 +2,11 @@ import { SnippetList } from '../features/snippets/components/SnippetList';
 import { useGetAllSnippets } from '../features/snippets/hooks/useGetAllSnippets';
 import { SnippetCreateDialog } from '../features/snippets/components/SnippetCreateDialog';
 import { createColumns } from '../features/snippets/components/coloumns';
+import { useNavigate } from 'react-router-dom';
 const SnippetsPage = () => {
   const { data: snippets, isLoading, isError } = useGetAllSnippets();
-  const columns = createColumns()
+  const navigate = useNavigate()
+  const columns = createColumns(navigate)
   if (isLoading && !snippets) {
     return <div>Loading...</div>; 
   }

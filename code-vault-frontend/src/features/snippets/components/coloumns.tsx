@@ -12,10 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu"
-import { useNavigate } from "react-router-dom"
+import { type NavigateFunction } from "react-router-dom"
+import { DeleteSnippetButton } from "./DeleteSnippetButton"
 
-export const createColumns = (): ColumnDef<Snippet>[] => {
-    const navigate = useNavigate()
+export const createColumns = (navigate:NavigateFunction): ColumnDef<Snippet>[] => {
+    
 return [
   {
     accessorKey: "title",
@@ -135,7 +136,10 @@ return [
               Open snippet
             </DropdownMenuItem>
             <DropdownMenuItem>Edit snippet</DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500">Delete snippet</DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()} >
+                <DeleteSnippetButton snippetId={snippet.id}/>
+            </DropdownMenuItem>
+            
           </DropdownMenuContent>
         </DropdownMenu>
       )
