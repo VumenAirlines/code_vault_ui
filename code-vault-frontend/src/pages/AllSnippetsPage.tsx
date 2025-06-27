@@ -1,10 +1,10 @@
 import { SnippetList } from '../features/snippets/components/SnippetList';
 import { useGetAllSnippets } from '../features/snippets/hooks/useGetAllSnippets';
 import { SnippetCreateDialog } from '../features/snippets/components/SnippetCreateDialog';
-
+import { createColumns } from '../features/snippets/components/coloumns';
 const SnippetsPage = () => {
   const { data: snippets, isLoading, isError } = useGetAllSnippets();
-
+  const columns = createColumns()
   if (isLoading && !snippets) {
     return <div>Loading...</div>; 
   }
@@ -19,7 +19,7 @@ const SnippetsPage = () => {
         <h1 className="text-3xl font-bold">My Snippets</h1>
         <SnippetCreateDialog/>
       </div>
-      <SnippetList snippets={snippets || []} />
+      <SnippetList columns={columns} data={snippets ?? []} />
     </div>
   );
 };

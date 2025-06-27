@@ -1,25 +1,86 @@
-import { SnippetListItem } from './SnippetListItem';
-import {type Snippet } from '../types';
+import { Table, TableBody,TableRow, TableHead, TableHeader, TableCell } from '../../../components/ui/table';
+import * as React from "react"
+import  {
+  type ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  type SortingState,
+  useReactTable,
+} from "@tanstack/react-table"
+import { useNavigate } from 'react-router-dom';
+import type { Snippet } from '../types';
 
-interface SnippetListProps {
-  snippets: Snippet[];
+
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
 }
 
-export const SnippetList = ({ snippets }: SnippetListProps) => {
-  if (snippets.length === 0) {
-    return (
-      <div className="text-center text-muted-foreground mt-8">
-        <p>You haven't created any snippets yet.</p>
-        <p>Click "Create Snippet" to get started!</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {snippets.map((snippet) => (
-        <SnippetListItem key={snippet.id} snippet={snippet} />
-      ))}
+export function SnippetList<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
+  
+  
+    const [sorting, setSorting] = React.useState<SortingState>([])
+    const navigate = useNavigate()
+    const table = useReactTable({
+    data,
+    columns,
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
+  })
+  return(
+    <div className='rounded-md border'>
+    <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                )
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+         <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+                onDoubleClick={()=>navigate(`/snippets/${(row.original as Snippet).id}`)}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+    </Table>
     </div>
-  );
+  )
+  
 };
