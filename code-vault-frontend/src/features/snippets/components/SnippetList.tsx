@@ -15,7 +15,6 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useNavigate } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -29,7 +28,7 @@ export function SnippetList<TData, TValue>({
   onRowDoubleClick,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const navigate = useNavigate();
+
   const table = useReactTable({
     data,
     columns,

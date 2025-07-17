@@ -7,17 +7,27 @@ import { useState } from "react";
 import { type Snippet } from "../features/snippets/types";
 import { SnippetDetailDisplay } from "../features/snippets/components/SnippetDetailDisplay";
 const SnippetsPage = () => {
-  const [selectedSnippet, setSelectedSnippet] = useState<Snippet | null>(null);
+  const [selectedSnippet, setSelectedSnippet] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: snippets, isLoading, isError } = useGetAllSnippets();
   const navigate = useNavigate();
-  const columns = createColumns(navigate);
 
-  const handleDoubleClick = (snippet: Snippet) => {
-    setSelectedSnippet(snippet);
+  const handleEditClick = (id: string) => {
+    navigate(`/snippets/${id}`);
+  };
+  const handleOpenClick = (id: string) => {
+    setSelectedSnippet(id);
     setIsOpen(true);
   };
+  const handleDoubleClick = (snippet: Snippet) => {
+    setSelectedSnippet(snippet.id);
+    setIsOpen(true);
+  };
+  const columns = createColumns({
+    onEditClick: handleEditClick,
+    onOpenClick: handleOpenClick,
+  });
   if (isLoading && !snippets) {
     return <div>Loading...</div>;
   }
@@ -27,7 +37,7 @@ const SnippetsPage = () => {
   }
 
   return (
-    <div className="flex-col">
+    <div className="flex-col w-full p-4">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">My Snippets</h1>
         <SnippetCreateDialog />
@@ -39,7 +49,7 @@ const SnippetsPage = () => {
       />
       {selectedSnippet && (
         <SnippetDetailDisplay
-          snippet={selectedSnippet}
+          id={selectedSnippet}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
         />

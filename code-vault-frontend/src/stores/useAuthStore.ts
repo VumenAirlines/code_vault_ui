@@ -7,7 +7,6 @@ interface AuthState {
   login: (user: User, token: string) => void;
   logout: () => void;
 }
-//todo:this is evil currying why
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({

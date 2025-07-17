@@ -1,9 +1,7 @@
 import { type SnippetDetail } from "../types";
 import { SnippetContentDisplay } from "./SnippetContentDisplay";
-import { Button } from "../../../components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -11,15 +9,20 @@ import {
   DialogTitle,
 } from "../../..//components/ui/dialog";
 import { Badge } from "../../../components/ui/badge";
+import { useGetSnippetById } from "../hooks/useGetSnippetById";
 export const SnippetDetailDisplay = ({
-  snippet,
+  id,
   isOpen,
   onClose,
 }: {
-  snippet: SnippetDetail;
+  id: string;
   isOpen: boolean;
   onClose: () => void;
 }) => {
+  const { data: snippet, isLoading, isError } = useGetSnippetById(id);
+  if (isLoading) return <div>Loading snippet...</div>;
+  if (isError) return <div>Error: Could not load the snippet.</div>;
+  if (!snippet) return <div>Snippet not found.</div>;
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!max-w-3xl w-fit">

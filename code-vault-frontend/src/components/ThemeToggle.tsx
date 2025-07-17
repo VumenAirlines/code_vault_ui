@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
-
+import { cn } from "../lib/utils";
 const themeConfig = {
   light: { icon: Sun, label: "Light" },
   dark: { icon: Moon, label: "Dark" },
@@ -17,9 +17,9 @@ const themeConfig = {
   system: { icon: Monitor, label: "System" },
 };
 
-export function ThemeToggle() {
+export const ThemeToggle = ({ className }: { className: string }) => {
   const { theme, setTheme, getActiveTheme } = useThemeStore();
-  
+
   // Get the appropriate icon for current theme
   const getCurrentIcon = () => {
     if (theme === "system") {
@@ -28,35 +28,37 @@ export function ThemeToggle() {
     }
     return themeConfig[theme].icon;
   };
-  
+
   const CurrentIcon = getCurrentIcon();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <CurrentIcon className="h-[1.2rem] w-[1.2rem] transition-all" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {Object.entries(themeConfig).map(([themeKey, config]) => {
-          const Icon = config.icon;
-          const isActive = theme === themeKey;
-          
-          return (
-            <DropdownMenuItem
-              key={themeKey}
-              onClick={() => setTheme(themeKey as any)}
-              className={isActive ? "bg-accent" : ""}
-            >
-              <Icon className="mr-2 h-4 w-4" />
-              {config.label}
-              {isActive && <span className="ml-auto">✓</span>}
-            </DropdownMenuItem>
-          );
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className={cn("size-fit", className)}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon">
+            <CurrentIcon className="h-[1.2rem] w-[1.2rem] transition-all" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {Object.entries(themeConfig).map(([themeKey, config]) => {
+            const Icon = config.icon;
+            const isActive = theme === themeKey;
+
+            return (
+              <DropdownMenuItem
+                key={themeKey}
+                onClick={() => setTheme(themeKey as any)}
+                className={isActive ? "bg-accent" : ""}
+              >
+                <Icon className="mr-2 h-4 w-4" />
+                {config.label}
+                {isActive && <span className="ml-auto">✓</span>}
+              </DropdownMenuItem>
+            );
+          })}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
-}
+};

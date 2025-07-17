@@ -13,10 +13,11 @@ export const snippetsLoader = (queryClient: QueryClient) => async () => {
     (await queryClient.fetchQuery(query))
   );
 };
+
 export const snippetDetailLoader =
   (queryClient: QueryClient) =>
   async ({ params }: { params: any }) => {
-    const snippetId = params.id; // The name matches the route param ':snippetId'
+    const snippetId = params.id;
     if (!snippetId) {
       throw new Response("Not Found", {
         status: 404,
@@ -29,7 +30,6 @@ export const snippetDetailLoader =
       queryFn: () => getSnippetById(snippetId),
     };
 
-    // Pre-fetch the data and return it
     return (
       queryClient.getQueryData(query.queryKey) ??
       (await queryClient.fetchQuery(query))
