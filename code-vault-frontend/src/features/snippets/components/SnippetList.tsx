@@ -1,31 +1,36 @@
-import { Table, TableBody,TableRow, TableHead, TableHeader, TableCell } from '../../../components/ui/table';
-import * as React from "react"
-import  {
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableHeader,
+  TableCell,
+} from "../../../components/ui/table";
+import * as React from "react";
+import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   type SortingState,
   useReactTable,
-} from "@tanstack/react-table"
-import { useNavigate } from 'react-router-dom';
-import type { Snippet } from '../types';
-
+} from "@tanstack/react-table";
+import { useNavigate } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  onRowDoubleClick: (row: TData) => void;
 }
 
 export function SnippetList<TData, TValue>({
   columns,
   data,
+  onRowDoubleClick,
 }: DataTableProps<TData, TValue>) {
-  
-  
-    const [sorting, setSorting] = React.useState<SortingState>([])
-    const navigate = useNavigate()
-    const table = useReactTable({
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const navigate = useNavigate();
+  const table = useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
@@ -34,10 +39,10 @@ export function SnippetList<TData, TValue>({
     state: {
       sorting,
     },
-  })
-  return(
-    <div className='rounded-md border'>
-    <Table>
+  });
+  return (
+    <div className="rounded-md border">
+      <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -51,18 +56,18 @@ export function SnippetList<TData, TValue>({
                           header.getContext()
                         )}
                   </TableHead>
-                )
+                );
               })}
             </TableRow>
           ))}
         </TableHeader>
-         <TableBody>
+        <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                onDoubleClick={()=>navigate(`/snippets/${(row.original as Snippet).id}`)}
+                onDoubleClick={() => onRowDoubleClick?.(row.original)}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -79,8 +84,7 @@ export function SnippetList<TData, TValue>({
             </TableRow>
           )}
         </TableBody>
-    </Table>
+      </Table>
     </div>
-  )
-  
-};
+  );
+}
