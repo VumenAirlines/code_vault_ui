@@ -1,4 +1,3 @@
-import { type SnippetDetail } from "../types";
 import { SnippetContentDisplay } from "./SnippetContentDisplay";
 import {
   Dialog,

@@ -48,6 +48,7 @@ export const SnippetEditor = ({
         setOptions={{ useWorker: false, ...preferences }}
         value={snippet.content}
         style={{ width: "100%", height: "100%" }}
+        className="rounded-sm"
       />
     </div>
   );

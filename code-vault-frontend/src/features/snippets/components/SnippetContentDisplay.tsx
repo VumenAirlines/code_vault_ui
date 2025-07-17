@@ -9,7 +9,7 @@ export const SnippetContentDisplay = ({
 }: {
   snippet: SnippetDetail;
 }) => {
-  const { copied, copyToClipboard } = useClipboard();
+  const { copied, error, copyToClipboard } = useClipboard();
   const { preferences, getLanguage } = useCodeBlock();
   return (
     <div className="relative rounded-md flex justify-center max-w-fit">
@@ -32,7 +32,10 @@ export const SnippetContentDisplay = ({
           <Clipboard
             role="button"
             className="size-4 text-muted-foreground"
-            onClick={() => copyToClipboard(snippet.content)}
+            onClick={() => {
+              copyToClipboard(snippet.content);
+              if (error) console.log(error);
+            }}
           />
         )}
       </div>

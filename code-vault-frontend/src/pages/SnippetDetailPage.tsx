@@ -57,7 +57,7 @@ const SnippetDetailPage = () => {
         </div>
       </div>
 
-      <div className="flex-1 h-full">
+      <div className="flex-1 h-full min-w-sm">
         <SnippetEditor className="w-full h-full" snippet={snippet} />
       </div>
     </div>

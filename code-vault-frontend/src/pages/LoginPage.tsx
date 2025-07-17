@@ -1,12 +1,9 @@
-import { LoginForm } from "../features/auth/components/LoginForm"; 
+import { LoginForm } from "../features/auth/components/LoginForm";
 
 const LoginPage = () => {
   return (
-    <div className="mx-auto max-w-md">
-      <p className="text-sm text-muted-foreground">
-        Enter your credentials to access your vault.
-      </p>
-      <div className="mt-8">
+    <div className=" flex mx-8 size-1/2 max-w-lg justify-center">
+      <div className=" flex mt-8 w-full justify-center ">
         <LoginForm />
       </div>
     </div>
