@@ -24,6 +24,22 @@ import { useCreateSnippet } from "../hooks/useCreateSnippet"; // We'll use the s
 import { type CreateSnippet } from "../types";
 import { snippetCreateFormSchema } from "../schemas/snippetCreateFormSchema";
 import { Input } from "../../../components/ui/input";
+import { Textarea } from "../../../components/ui/textarea";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../../../components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from "../../../components/ui/command";
+import { languages } from "../types";
+import { cn } from "../../../lib/utils";
+import { ChevronsUpDown } from "lucide-react";
 
 export const SnippetCreateDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +77,11 @@ export const SnippetCreateDialog = () => {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., React Fetch Hook" {...field} />
+                    <Input
+                      maxLength={50}
+                      placeholder="e.g., React Fetch Hook"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -75,7 +95,47 @@ export const SnippetCreateDialog = () => {
                 <FormItem>
                   <FormLabel>Language</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., typescript" {...field} />
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              "w-[200px] justify-between",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value
+                              ? languages.find(
+                                  (language) => language.value === field.value
+                                )?.label
+                              : "Select language"}
+                            <ChevronsUpDown className="opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[200px] p-0">
+                        <Command>
+                          <CommandList>
+                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandGroup>
+                              {languages.map((language) => (
+                                <CommandItem
+                                  value={language.label}
+                                  key={language.value}
+                                  onSelect={() => {
+                                    form.setValue("language", language.value);
+                                  }}
+                                >
+                                  {language.label}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +149,12 @@ export const SnippetCreateDialog = () => {
                 <FormItem>
                   <FormLabel>Description (Optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="A short description." {...field} />
+                    <Textarea
+                      className="resize-none"
+                      maxLength={120}
+                      placeholder="A short description."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -48,6 +48,25 @@ export const availableEditorThemes = [
   "monokai",
   "one_dak",
 ] as const;
+export const languages = [
+  { label: "C", value: "c" },
+  { label: "C++", value: "cpp" },
+  { label: "C#", value: "csharp" },
+  { label: "JavaScript", value: "javascript" },
+  { label: "TypeScript", value: "typescript" },
+  { label: "Python", value: "python" },
+  { label: "Java", value: "java" },
+  { label: "Go", value: "go" },
+  { label: "Rust", value: "rust" },
+  { label: "PHP", value: "php" },
+  { label: "HTML", value: "html" },
+  { label: "CSS", value: "css" },
+  { label: "JSON", value: "json" },
+  { label: "Markdown", value: "markdown" },
+  { label: "SQL", value: "sql" },
+  { label: "TSX", value: "tsx" },
+  { label: "JSX", value: "jsx" },
+] as const;
 export const availableLanguages = {
   c: "c",
   "c++": "cpp",
