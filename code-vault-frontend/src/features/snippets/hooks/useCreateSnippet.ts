@@ -9,6 +9,8 @@ export const useCreateSnippet = () => {
     mutationFn: createSnippet,
     onSuccess: (newlyCreatedSnippet) => {
       queryClient.invalidateQueries({ queryKey: ["allSnippets"] });
+      queryClient.invalidateQueries({ queryKey: ["latest"] });
+      queryClient.invalidateQueries({ queryKey: ["stats"] });
       navigate(`/snippets/${newlyCreatedSnippet.id}`);
     },
     onError: (error) => {

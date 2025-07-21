@@ -1,7 +1,7 @@
 import { api } from "../../../lib/axios";
-import { type Snippet } from "../types";
+import { type SnippetDetail } from "../types";
 
-export const getSnippetById = async (id: string): Promise<Snippet> => {
+export const getSnippetById = async (id: string): Promise<SnippetDetail> => {
   const { data } = await api.get(`/Snippets/${id}`);
   return data;
 };

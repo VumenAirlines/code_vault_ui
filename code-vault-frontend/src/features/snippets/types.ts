@@ -1,7 +1,6 @@
 export interface Snippet {
   id: string;
   title: string;
-  content: string;
   language: string;
   description: string | null;
   createdAt: string;
@@ -106,3 +105,13 @@ export const availableEditorLanguages = {
   jsx: "jsx",
 } as const;
 export type SupportedLanguage = keyof typeof availableLanguages;
+
+export interface StatDetails {
+  name: string;
+  count: number;
+}
+export interface Stats {
+  totalCount: number;
+  mostUsedLanguage: StatDetails[];
+  mostUsedTags: StatDetails[];
+}

@@ -10,7 +10,9 @@ export const useUpdateSnippet = () => {
     mutationFn: updateSnippet,
     onSuccess: (_, snippetId) => {
       queryClient.invalidateQueries({ queryKey: ["allSnippets"] });
-      queryClient.invalidateQueries({ queryKey: ["allSnippets", snippetId] });
+      queryClient.invalidateQueries({ queryKey: ["snippets", snippetId] });
+      queryClient.invalidateQueries({ queryKey: ["latest"] });
+      queryClient.invalidateQueries({ queryKey: ["stats"] });
 
       navigate(`/snippets/${snippetId}`);
     },
