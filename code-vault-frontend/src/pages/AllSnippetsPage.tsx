@@ -1,6 +1,5 @@
 import { SnippetList } from "../features/snippets/components/SnippetList";
 import { useGetAllSnippets } from "../features/snippets/hooks/useGetAllSnippets";
-import { SnippetCreateDialog } from "../features/snippets/components/SnippetCreateDialog";
 import { createColumns } from "../features/snippets/components/coloumns";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -39,8 +38,7 @@ const SnippetsPage = () => {
   return (
     <div className="flex-col w-full p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">My Snippets</h1>
-        <SnippetCreateDialog />
+        <h1 className="text-3xl font-bold">All Snippets</h1>
       </div>
       <SnippetList
         columns={columns}

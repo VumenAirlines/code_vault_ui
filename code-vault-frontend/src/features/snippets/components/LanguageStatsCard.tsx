@@ -71,7 +71,7 @@ const chartConfig = {
 
 export const LanguageStatsCard = ({ langs }: { langs: StatDetails[] }) => {
   return (
-    <Card className="flex flex-col gap-2 max-w-sm">
+    <Card className="flex flex-col flex-1 justify-center gap-2 overflow-x-clip w-full sm:max-w-md lg:max-w-sm">
       <CardHeader className="items-center">
         <CardTitle>Languages</CardTitle>
         <CardDescription>Your most used languages</CardDescription>
@@ -87,7 +87,7 @@ export const LanguageStatsCard = ({ langs }: { langs: StatDetails[] }) => {
               data={langs.filter((l) => l.count > 0)}
               dataKey="count"
               nameKey="name"
-              innerRadius={40}
+              innerRadius={"60%"}
               label={({ name }) =>
                 chartConfig[name as keyof typeof chartConfig]?.label || name
               }

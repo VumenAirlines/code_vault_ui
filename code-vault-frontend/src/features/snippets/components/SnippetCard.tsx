@@ -5,27 +5,46 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "../../../components/ui/card";
 import { Badge } from "../../../components/ui/badge";
 import { Separator } from "../../../components/ui/separator";
 
-export const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
+//todo:lang names
+export const SnippetCard = ({
+  snippet,
+  click,
+  editClick,
+}: {
+  snippet: Snippet;
+  click: () => void;
+  editClick: () => void;
+}) => {
   return (
-    <Card className="flex flex-col gap-2 max-w-sm">
+    <Card
+      className="flex flex-col gap-2 cursor-pointer w-full sm:max-w-md lg:max-w-sm overflow-x-clip"
+      onClick={click}
+    >
       <CardHeader>
-        <CardTitle className="text-center">{snippet.title}</CardTitle>
-        <CardAction>
-          <Badge className=" !text-accent-foreground">{snippet.language}</Badge>
+        <CardAction className="font-semibold leading-none text-center !row-start-1 !col-start-1 !justify-self-center !self-center mx-auto">
+          {snippet.title}
+        </CardAction>
+        <CardAction className="space-x-2 flex-row flex !col-start-1">
+          <Badge onClick={editClick} className="!text-accent-foreground">
+            Edit
+          </Badge>
+        </CardAction>
+        <CardAction className="!col-start-1 !self-start !justify-self-start">
+          <Badge className="!text-accent-foreground ">{snippet.language}</Badge>
         </CardAction>
       </CardHeader>
 
       <CardContent className=" flex flex-col gap-2 flex-1">
         <Separator orientation="horizontal" />
-        <p className="p-2">Description</p>
-        <div className="flex flex-wrap border-2 rounded-sm p-2 text-sm text-muted-foreground">
+        <p className="px-2">Description</p>
+        <div className="flex flex-1 px-2 text-sm text-muted-foreground break-all whitespace-pre-wrap w-full  max-h-sm h-sm">
           {snippet.description}
         </div>
+
         <p className="p-2">Tags</p>
         <div className="flex flex-wrap p-2 text-sm">
           {snippet.tags.map((tag, index) => (

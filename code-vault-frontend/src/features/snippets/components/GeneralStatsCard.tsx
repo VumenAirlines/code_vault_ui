@@ -17,27 +17,27 @@ export const GeneralStatsCard = ({
   tagCount: number;
 }) => {
   return (
-    <Card className="flex flex-col gap-2 max-w-sm">
+    <Card className="flex flex-1 flex-col gap-2  w-full sm:max-w-md lg:max-w-sm ">
       <CardHeader className="items-center">
         <CardTitle>Stats</CardTitle>
         <CardDescription>Your general statistics</CardDescription>
         <Separator orientation="horizontal" />
       </CardHeader>
-      <CardContent className="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1">
+      <CardContent className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 flex-1">
         <div className="text-center">
-          <p className="text-muted-foreground">Total snippets</p>
+          <p className="text-muted-foreground">Snippets</p>
           <p className="text-lg font-semibold text-accent-foreground">
             {totalCount}
           </p>
         </div>
         <div className="text-center">
-          <p className="text-muted-foreground">Languages used</p>
+          <p className="text-muted-foreground">Languages</p>
           <p className="text-lg font-semibold text-accent-foreground">
             {langCount}
           </p>
         </div>
         <div className="text-center">
-          <p className="text-muted-foreground">Tags used</p>
+          <p className="text-muted-foreground">Tags</p>
           <p className="text-lg font-semibold text-accent-foreground">
             {tagCount}
           </p>

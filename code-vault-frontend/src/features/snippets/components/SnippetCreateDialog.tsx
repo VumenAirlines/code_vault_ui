@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -10,7 +9,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "../../..//components/ui/dialog";
 import {
   Form,
@@ -41,8 +39,14 @@ import { languages } from "../types";
 import { cn } from "../../../lib/utils";
 import { ChevronsUpDown } from "lucide-react";
 
-export const SnippetCreateDialog = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export const SnippetCreateDialog = ({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: () => void;
+}) => {
+  //const [isOpen, setIsOpen] = useState(false);
 
   const snippetCreateMutation = useCreateSnippet();
   const form = useForm<z.infer<typeof snippetCreateFormSchema>>({
@@ -55,12 +59,9 @@ export const SnippetCreateDialog = () => {
       content: "",
     });
   };
-  if (snippetCreateMutation.isSuccess && isOpen) setIsOpen(false);
+  if (snippetCreateMutation.isSuccess && isOpen) setIsOpen();
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button>Create Snippet</Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create New Snippet</DialogTitle>
