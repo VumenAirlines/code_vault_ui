@@ -28,7 +28,7 @@ export interface UpdateSnippet {
   title?: string;
   content?: string;
   language?: string;
-  description?: string | null;
+  description?: string;
   tags?: string[];
 }
 export interface UpdateSnippetParams {
