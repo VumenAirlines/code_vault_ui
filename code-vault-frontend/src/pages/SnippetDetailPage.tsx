@@ -13,8 +13,10 @@ import { useState, type ChangeEventHandler } from "react";
 import { Pen, Plus } from "lucide-react";
 import { Textarea } from "../components/ui/textarea";
 import clsx from "clsx";
+import { AddTagsDialog } from "../features/snippets/components/AddTagsDialog";
 const SnippetDetailPage = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const [tagAdd, setTagAdd] = useState(false);
   const initialData = useLoaderData() as SnippetDetail;
   const { id } = useParams<{ id: string }>();
   const { data: snippet, isLoading, isError } = useGetSnippetById(id);
@@ -84,9 +86,25 @@ const SnippetDetailPage = () => {
       content: newCode,
     }));
   };
+  const handleTagSave = (newTags: string[]) => {
+    setUpdatedSnippet((prev) => ({
+      ...prev,
+      tags: newTags,
+    }));
+    setTagAdd(false);
+  };
+  const handleTagAddOpen = () => {
+    setTagAdd(true);
+  };
   const toggleEdit = () => setIsEdit(!isEdit);
   return (
     <div className="w-full flex h-[calc(100vh-80px)] gap-4 px-4 py-6">
+      <AddTagsDialog
+        isOpen={tagAdd}
+        onClose={() => setTagAdd(false)}
+        prevTags={updatedSnippet.tags}
+        onSave={handleTagSave}
+      />
       <div className="flex flex-col justify-between flex-none w-[300px] max-w-[300px] border-r-2 border-accent px-4 py-4 overflow-hidden">
         <div
           className={clsx(
@@ -109,6 +127,7 @@ const SnippetDetailPage = () => {
         </div>
 
         <div className="flex justify-center mb-4 text-primary">
+          //todo: add logos
           <Circle size={200} />
         </div>
 
@@ -130,10 +149,10 @@ const SnippetDetailPage = () => {
         <div className="mb-4">
           <div className="flex flex-row justify-between pr-3">
             <p className="text-md font-semibold mb-1">Tags:</p>
-            <Plus />
+            <Plus className="" onClick={handleTagAddOpen} />
           </div>
           <div className="flex flex-wrap gap-2 max-w-full overflow-hidden">
-            {snippet.tags.map((tag, index) => (
+            {updatedSnippet.tags?.map((tag, index) => (
               <Badge variant="secondary" key={index}>
                 {tag}
               </Badge>
@@ -165,7 +184,7 @@ const SnippetDetailPage = () => {
         <SnippetEditor
           className="w-full h-full"
           code={updatedSnippet.content ?? ""}
-          language={snippet.language}
+          language={updatedSnippet.language ?? "text"}
           change={handleCodeChange}
         />
       </div>
