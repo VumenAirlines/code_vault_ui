@@ -14,6 +14,7 @@ import { Pen, Plus } from "lucide-react";
 import { Textarea } from "../components/ui/textarea";
 import clsx from "clsx";
 import { AddTagsDialog } from "../features/snippets/components/AddTagsDialog";
+import { toast } from "sonner";
 const SnippetDetailPage = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [tagAdd, setTagAdd] = useState(false);
@@ -60,9 +61,11 @@ const SnippetDetailPage = () => {
       {
         onSuccess: () => {
           setIsEdit(false);
+          toast.success("Snippet saved.");
         },
         onError: (error: Error) => {
           console.error("Failed to update snippet:", error);
+          toast.error("Error saving snippet");
         },
       }
     );

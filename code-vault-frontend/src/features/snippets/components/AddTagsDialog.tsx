@@ -19,7 +19,7 @@ const tagObject = {
   sorting: 5,
   test: 5,
 };
-
+//todo: artifact on top of badge when opening and unselecting
 export const AddTagsDialog = ({
   isOpen,
   onClose,

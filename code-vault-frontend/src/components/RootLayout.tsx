@@ -11,6 +11,7 @@ import {
 } from "./ui/sheet";
 import { LogoutButton } from "../features/auth/components/LogoutButton";
 import { useState } from "react";
+import { Toaster } from "./ui/sonner";
 const RootLayout = () => {
   const [open, setOpen] = useState(false);
 
@@ -35,6 +36,7 @@ const RootLayout = () => {
         </SheetContent>
       </Sheet>
       <main className="flex justify-center items-center pt-10  mx-8 h-full">
+        <Toaster richColors closeButton />
         <Outlet />
       </main>
     </div>
