@@ -37,6 +37,7 @@ export const AddTagsDialog = ({
   );
   const [selectedTags, setSelectedTags] = useState(new Set<string>(prevTags));
   const handleAddTag = () => {
+    if (!newTag.trim()) return;
     const newSet = new Set(selectedTags);
     newSet.add(newTag);
     setSelectedTags(newSet);
@@ -78,8 +79,18 @@ export const AddTagsDialog = ({
   const handleSave = () => {
     onSave([...selectedTags]);
   };
+  const handleClose = () => {
+    const newSet = new Set(prevTags);
+
+    setSelectedTags(newSet);
+    const newMap = new Map(Object.entries(tagObject));
+
+    setExistingTags(newMap);
+    setNewTag("");
+    onClose();
+  };
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add tag</DialogTitle>
@@ -94,14 +105,16 @@ export const AddTagsDialog = ({
               <Badge
                 onClick={() => handleClick(selectedTags.has(tag[0]), tag[0])}
                 variant={selectedTags.has(tag[0]) ? "default" : "secondary"}
-                className="!text-accent-foreground"
+                className=""
                 key={index}
               >
                 <span>{tag[0]}</span>
                 <span
                   className={clsx(
-                    "text-secondary-foreground px-1.5 py-0.5 rounded-sm text-xs",
-                    selectedTags.has(tag[0]) ? "!bg-muted" : "!bg-primary"
+                    " px-1.5 py-0.5 rounded-sm text-xs",
+                    selectedTags.has(tag[0])
+                      ? "!bg-muted text-secondary-foreground"
+                      : "!bg-primary text-button-text"
                   )}
                 >
                   {tag[1] == 0 ? "x" : tag[1]}

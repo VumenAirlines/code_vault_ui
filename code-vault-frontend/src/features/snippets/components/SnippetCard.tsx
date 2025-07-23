@@ -38,7 +38,7 @@ export const SnippetCard = ({
           </Badge>
         </CardAction>
         <CardAction className="!col-start-1 !self-start !justify-self-start">
-          <Badge className="!text-accent-foreground ">{snippet.language}</Badge>
+          <Badge className=" ">{snippet.language}</Badge>
         </CardAction>
       </CardHeader>
 
@@ -52,10 +52,7 @@ export const SnippetCard = ({
         <p className="p-2">Tags</p>
         <div className="flex flex-wrap p-2 text-sm gap-2">
           {snippet.tags.map((tag, index) => (
-            <Badge
-              className="flex flex-none size-fit !text-accent-foreground"
-              key={index}
-            >
+            <Badge className="flex flex-none size-fit " key={index}>
               {tag}
             </Badge>
           ))}

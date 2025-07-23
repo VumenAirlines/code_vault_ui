@@ -20,10 +20,7 @@ export const TagsStatsCard = ({ tags }: { tags: StatDetails[] }) => {
       <CardContent className="flex flex-col flex-1 gap-2 relative">
         <div className="flex flex-wrap gap-2 flex-grow content-start justify-center">
           {tags.map((tag, index) => (
-            <Badge
-              className="flex-none  size-fit !text-accent-foreground"
-              key={index}
-            >
+            <Badge className="flex-none  size-fit" key={index}>
               <span>{tag.name}</span>
               <span className="bg-muted text-secondary-foreground px-1.5 py-0.5 rounded-sm text-xs">
                 {tag.count}
