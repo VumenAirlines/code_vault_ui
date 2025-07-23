@@ -26,6 +26,8 @@ const SnippetDetailPage = () => {
   if (isError) return <div>Error: Could not load the snippet.</div>;
   if (!snippet) return <div>Snippet not found.</div>;
   //todo:toast
+  //todo: add logos
+
   const [updatedSnippet, setUpdatedSnippet] = useState<UpdateSnippet>({
     title: snippet.title,
     content: snippet.content,
@@ -127,7 +129,6 @@ const SnippetDetailPage = () => {
         </div>
 
         <div className="flex justify-center mb-4 text-primary">
-          //todo: add logos
           <Circle size={200} />
         </div>
 
