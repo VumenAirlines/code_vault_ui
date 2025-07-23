@@ -5,17 +5,23 @@ import { SnippetEditor } from "../features/snippets/components/SnippetEditor";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Circle } from "lucide-react";
+import { useUpdateSnippet } from "../features/snippets/hooks/useUpdateSnippet";
+import { useState } from "react";
 
 const SnippetDetailPage = () => {
   const initialData = useLoaderData() as SnippetDetail;
   const { id } = useParams<{ id: string }>();
   const { data: snippet, isLoading, isError } = useGetSnippetById(id);
   const navigate = useNavigate();
-
+  const updateSnippetMuatation = useUpdateSnippet();
   if (isLoading) return <div>Loading snippet...</div>;
   if (isError) return <div>Error: Could not load the snippet.</div>;
   if (!snippet) return <div>Snippet not found.</div>;
-
+  //todo:toast
+  const [code, setCode] = useState(snippet.content);
+  const handleSaveClick = () => {
+    updateSnippetMuatation.mutate({ id: id!, data: { content: code } });
+  };
   return (
     <div className="w-full flex h-[calc(100vh-80px)] gap-4 px-4 py-6">
       <div className="flex flex-col justify-between flex-none w-[300px] max-w-[300px] border-r-2 border-accent px-4 py-4 overflow-hidden">
@@ -46,7 +52,9 @@ const SnippetDetailPage = () => {
           <p className=" text-xs mb-2 text-muted-foreground">{`{${snippet.id}}`}</p>
         </div>
         <div className="flex justify-between gap-2">
-          <Button className="w-1/2">Save</Button>
+          <Button className="w-1/2" onClick={handleSaveClick}>
+            Save
+          </Button>
           <Button
             onClick={() => navigate("/snippets")}
             className="w-1/2"
@@ -58,7 +66,12 @@ const SnippetDetailPage = () => {
       </div>
 
       <div className="flex-1 h-full min-w-sm">
-        <SnippetEditor className="w-full h-full" snippet={snippet} />
+        <SnippetEditor
+          className="w-full h-full"
+          code={code}
+          language={snippet.language}
+          change={setCode}
+        />
       </div>
     </div>
   );

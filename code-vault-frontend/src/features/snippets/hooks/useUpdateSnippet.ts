@@ -14,7 +14,7 @@ export const useUpdateSnippet = () => {
       queryClient.invalidateQueries({ queryKey: ["latest"] });
       queryClient.invalidateQueries({ queryKey: ["stats"] });
 
-      navigate(`/snippets/${snippetId}`);
+      navigate(`/snippets/${snippetId.id}`);
     },
     onError: (error) => {
       console.error("Failed to update snippet", error);

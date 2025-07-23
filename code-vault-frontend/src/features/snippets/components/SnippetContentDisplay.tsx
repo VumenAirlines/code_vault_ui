@@ -12,9 +12,9 @@ export const SnippetContentDisplay = ({
   const { copied, error, copyToClipboard } = useClipboard();
   const { preferences, getLanguage } = useCodeBlock();
   return (
-    <div className="relative rounded-md flex justify-center  w-full ">
+    <div className="relative rounded-md  w-full  ">
       <ShikiHighlighter
-        className="text-sm min-w-full overflow-x-auto rounded-md w-full border-2 "
+        className="text-sm  overflow-x-auto rounded-md w-full border-2 block"
         language={getLanguage(snippet.language.toLowerCase())}
         theme={preferences.theme}
         showLanguage={preferences.showLanguage}

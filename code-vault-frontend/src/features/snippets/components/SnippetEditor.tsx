@@ -1,7 +1,6 @@
 import AceEditor from "react-ace";
 import { useCodeEditor } from "../hooks/useCodeEditor";
 import "ace-builds/src-noconflict/ext-language_tools";
-import type { SnippetDetail } from "../types";
 
 // THEMES
 import "ace-builds/src-noconflict/theme-github";
@@ -30,15 +29,19 @@ import "ace-builds/src-noconflict/mode-jsx";
 import "ace-builds/src-noconflict/ext-language_tools";
 
 export const SnippetEditor = ({
-  snippet,
+  code,
+  language,
   className,
+  change,
 }: {
-  snippet: SnippetDetail;
+  code: string;
+  language: string;
   className?: string;
+  change: (newCode: string) => void;
 }) => {
   const { getLanguage, preferences } = useCodeEditor();
 
-  const selectedLanguage = getLanguage(snippet.language.toLowerCase());
+  const selectedLanguage = getLanguage(language.toLowerCase());
   return (
     <div className={className}>
       <AceEditor
@@ -46,9 +49,10 @@ export const SnippetEditor = ({
         mode={selectedLanguage}
         name="ace_editor"
         setOptions={{ useWorker: false, ...preferences }}
-        value={snippet.content}
+        value={code}
         style={{ width: "100%", height: "100%" }}
         className="rounded-sm"
+        onChange={(newcode) => change(newcode)}
       />
     </div>
   );
