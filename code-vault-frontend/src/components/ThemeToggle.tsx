@@ -1,4 +1,4 @@
-import { Moon, Sun, Droplets, Monitor } from "lucide-react";
+import { Moon, Sun, Droplets, Monitor, Trees } from "lucide-react";
 import { useThemeStore } from "../stores/useThemeStore";
 import { Button } from "../components/ui/button";
 import {
@@ -11,16 +11,14 @@ import { cn } from "../lib/utils";
 const themeConfig = {
   light: { icon: Sun, label: "Light" },
   dark: { icon: Moon, label: "Dark" },
-  blue: { icon: Droplets, label: "Blue" },
-  green: { icon: Droplets, label: "Green" },
-
+  "theme-blue": { icon: Droplets, label: "Blue" },
+  "theme-green": { icon: Trees, label: "Green" },
   system: { icon: Monitor, label: "System" },
 };
 
 export const ThemeToggle = ({ className }: { className: string }) => {
   const { theme, setTheme, getActiveTheme } = useThemeStore();
 
-  // Get the appropriate icon for current theme
   const getCurrentIcon = () => {
     if (theme === "system") {
       const activeTheme = getActiveTheme();

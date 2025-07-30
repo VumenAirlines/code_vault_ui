@@ -1,13 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type Theme = "light" | "dark" | "system" | "blue" | "green";
+import type { Theme } from "../types";
 
 interface ThemeState {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   getSystemTheme: () => "light" | "dark";
-  getActiveTheme: () => "light" | "dark" | "blue" | "green";
+  getActiveTheme: () => "light" | "dark" | "theme-blue" | "theme-green";
 }
 
 export const useThemeStore = create<ThemeState>()(
@@ -16,8 +15,6 @@ export const useThemeStore = create<ThemeState>()(
       theme: "system",
       setTheme: (theme) => {
         set({ theme });
-        // Apply theme immediately when set
-        applyThemeToDOM(theme);
       },
       getSystemTheme: () => {
         if (typeof window === "undefined") return "light";
@@ -35,27 +32,3 @@ export const useThemeStore = create<ThemeState>()(
     }
   )
 );
-
-// Helper function to apply theme to DOM
-function applyThemeToDOM(theme: Theme) {
-  if (typeof window === "undefined") return;
-
-  const root = window.document.documentElement;
-
-  // Remove all theme classes
-  root.classList.remove("light", "dark", "theme-blue", "theme-green");
-
-  if (theme === "system") {
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
-      ? "dark"
-      : "light";
-    root.classList.add(systemTheme);
-  } else if (theme === "blue") {
-    root.classList.add("theme-blue");
-  } else if (theme === "green") {
-    root.classList.add("theme-green");
-  } else {
-    root.classList.add(theme);
-  }
-}
