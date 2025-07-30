@@ -37,26 +37,28 @@ const defaultPreferences: Preferences = {
 
 export const useCodeEditorStore = create<CodeEditorState>()(
   persist(
-    (set, get) => {
-      const updatePreferences = (updates: Partial<Preferences>) =>
+    (set, get) => ({
+      preferences: defaultPreferences,
+
+      updatePreferences: (updates: Partial<Preferences>) => {
         set((state) => ({
           preferences: {
             ...state.preferences,
             ...updates,
           },
         }));
+      },
 
-      const toggle = <K extends keyof Preferences>(key: K) =>
-        updatePreferences({
-          [key]: !get().preferences[key],
-        } as Partial<Preferences>);
-
-      return {
-        preferences: defaultPreferences,
-        updatePreferences,
-        toggle,
-      };
-    },
+      toggle: (key) => {
+        const current = get().preferences[key];
+        set((state) => ({
+          preferences: {
+            ...state.preferences,
+            [key]: typeof current === "boolean" ? !current : current,
+          },
+        }));
+      },
+    }),
     {
       name: "code-editor-preferences",
     }
