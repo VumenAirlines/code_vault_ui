@@ -24,17 +24,11 @@ import { snippetCreateFormSchema } from "../schemas/snippetCreateFormSchema";
 import { Input } from "../../../components/ui/input";
 import { Textarea } from "../../../components/ui/textarea";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../../components/ui/popover";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "../../../components/ui/command";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../../components/ui/dropdown-menu";
 import { languages } from "../types";
 import { cn } from "../../../lib/utils";
 import { ChevronsUpDown } from "lucide-react";
@@ -96,8 +90,8 @@ export const SnippetCreateDialog = ({
                 <FormItem>
                   <FormLabel>Language</FormLabel>
                   <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
                         <FormControl>
                           <Button
                             variant="outline"
@@ -115,28 +109,23 @@ export const SnippetCreateDialog = ({
                             <ChevronsUpDown className="opacity-50" />
                           </Button>
                         </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
-                        <Command>
-                          <CommandList>
-                            <CommandEmpty>No framework found.</CommandEmpty>
-                            <CommandGroup>
-                              {languages.map((language) => (
-                                <CommandItem
-                                  value={language.label}
-                                  key={language.value}
-                                  onSelect={() => {
-                                    form.setValue("language", language.value);
-                                  }}
-                                >
-                                  {language.label}
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-[200px] p-0">
+                        {languages.map((language) => (
+                          <DropdownMenuItem
+                            className={
+                              language.value == field.value ? "bg-accent" : ""
+                            }
+                            key={language.value}
+                            onSelect={() => {
+                              form.setValue("language", language.value);
+                            }}
+                          >
+                            {language.label}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

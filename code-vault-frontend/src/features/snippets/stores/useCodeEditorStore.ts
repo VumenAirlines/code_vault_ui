@@ -1,19 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type Preferences = {
-  theme: string;
-  fontSize: number;
-  lineHeight: number;
-  enableSnippets: boolean;
-  showGutter: boolean;
-  showPrintMargin: boolean;
-  showLineNumbers: boolean;
-  highlightActiveLine: boolean;
-  enableBasicAutocompletion: boolean;
-  enableLiveAutocompletion: boolean;
-  tabSize: number;
-};
+import type { Preferences } from "../types";
 
 interface CodeEditorState {
   preferences: Preferences;
@@ -24,7 +12,6 @@ interface CodeEditorState {
 const defaultPreferences: Preferences = {
   theme: "one_dark",
   fontSize: 12,
-  lineHeight: 20,
   tabSize: 4,
   enableSnippets: false,
   showGutter: true,

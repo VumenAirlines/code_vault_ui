@@ -12,6 +12,9 @@ import {
 import { LogoutButton } from "../features/auth/components/LogoutButton";
 import { useState } from "react";
 import { Toaster } from "./ui/sonner";
+import { ProfileDisplay } from "./ProfileDisplay";
+import { EditorSettingsDialog } from "./EditorSettingsDialog";
+import { CodeBlockSettingsDialog } from "./CodeBlockSettingsDialog";
 const RootLayout = () => {
   const [open, setOpen] = useState(false);
 
@@ -25,12 +28,21 @@ const RootLayout = () => {
           <SheetHeader>
             <SheetTitle>Settings</SheetTitle>
           </SheetHeader>
-          <div className="grid flex-1 auto-rows-min gap-6 px-4">
-            <div className="grid gap-3"></div>
-            <div className="grid gap-3"></div>
+          <div className="grid flex-1 auto-rows-min gap-4 px-4">
+            <div className="grid gap-3">
+              <ProfileDisplay />
+            </div>
+            <div className="grid gap-3">
+              <EditorSettingsDialog />
+            </div>
+            <div className="grid gap-3">
+              <CodeBlockSettingsDialog />
+            </div>
+            <div className="grid gap-3">
+              <ThemeToggle className="w-full" />
+            </div>
           </div>
           <SheetFooter>
-            <ThemeToggle className=" ml-auto" />
             <LogoutButton onLogout={() => setOpen(false)} />
           </SheetFooter>
         </SheetContent>

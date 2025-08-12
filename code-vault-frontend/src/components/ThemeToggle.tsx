@@ -16,7 +16,7 @@ const themeConfig = {
   system: { icon: Monitor, label: "System" },
 };
 
-export const ThemeToggle = ({ className }: { className: string }) => {
+export const ThemeToggle = ({ className }: { className?: string }) => {
   const { theme, setTheme, getActiveTheme } = useThemeStore();
 
   const getCurrentIcon = () => {
@@ -33,9 +33,14 @@ export const ThemeToggle = ({ className }: { className: string }) => {
     <div className={cn("size-fit", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon">
-            <CurrentIcon className="h-[1.2rem] w-[1.2rem] transition-all" />
-            <span className="sr-only">Toggle theme</span>
+          <Button
+            variant="ghost"
+            className="w-full flex flex-row justify-between rounded-none hover:bg-background dark:hover:bg-background cursor-pointer"
+          >
+            <span className="">Change theme</span>
+            <div className="size-fit ">
+              <CurrentIcon className="h-[1.2rem] w-[1.2rem] transition-all" />
+            </div>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">

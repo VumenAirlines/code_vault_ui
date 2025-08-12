@@ -45,7 +45,7 @@ export const availableEditorThemes = [
   "github",
   "github_dark",
   "monokai",
-  "one_dak",
+  "one_dark",
 ] as const;
 export const languages = [
   { label: "C", value: "c" },
@@ -115,3 +115,20 @@ export interface Stats {
   mostUsedLanguage: StatDetails[];
   mostUsedTags: StatDetails[];
 }
+
+export type Preferences = {
+  theme: string;
+  fontSize: number;
+  enableSnippets: boolean;
+  showGutter: boolean;
+  showPrintMargin: boolean;
+  showLineNumbers: boolean;
+  highlightActiveLine: boolean;
+  enableBasicAutocompletion: boolean;
+  enableLiveAutocompletion: boolean;
+  tabSize: number;
+};
+export type ThemeOption = {
+  label: string;
+  value: string;
+};

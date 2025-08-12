@@ -24,7 +24,7 @@ export const SnippetDetailDisplay = ({
   if (!snippet) return <div>Snippet not found.</div>;
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!max-w-3xl">
+      <DialogContent className="!max-w-3xl max-h-95 overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{snippet.title}</DialogTitle>
           <DialogDescription>{snippet.description}</DialogDescription>
