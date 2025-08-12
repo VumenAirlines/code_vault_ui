@@ -9,3 +9,14 @@ export const protectedRouteLoader = () => {
   }
   return null;
 };
+import type { LoaderFunction } from "react-router-dom";
+
+export const authRouteLoader: LoaderFunction = async () => {
+  const isLoggedIn = useAuthStore.getState().token;
+
+  if (isLoggedIn) {
+    return redirect("/");
+  }
+
+  return null;
+};

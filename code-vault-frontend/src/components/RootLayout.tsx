@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu } from "lucide-react";
 import {
@@ -15,9 +15,10 @@ import { Toaster } from "./ui/sonner";
 import { ProfileDisplay } from "./ProfileDisplay";
 import { EditorSettingsDialog } from "./EditorSettingsDialog";
 import { CodeBlockSettingsDialog } from "./CodeBlockSettingsDialog";
+import { Button } from "./ui/button";
 const RootLayout = () => {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background font-sans antialiased ">
       <Sheet open={open} onOpenChange={setOpen}>
@@ -32,14 +33,24 @@ const RootLayout = () => {
             <div className="grid gap-3">
               <ProfileDisplay />
             </div>
-            <div className="grid gap-3">
-              <EditorSettingsDialog />
-            </div>
-            <div className="grid gap-3">
-              <CodeBlockSettingsDialog />
-            </div>
-            <div className="grid gap-3">
-              <ThemeToggle className="w-full" />
+            <Button
+              className="rounded-none hover:bg-background cursor-pointer justify-start  dark:hover:bg-background text-md "
+              variant="ghost"
+              onClick={() => navigate("/snippets")}
+            >
+              All snippets
+            </Button>
+            <p className="text-md px-3 font-semibold">Settings</p>
+            <div className="grid auto-rows-min gap-2 px-4">
+              <div className="grid gap-3">
+                <EditorSettingsDialog />
+              </div>
+              <div className="grid gap-3">
+                <CodeBlockSettingsDialog />
+              </div>
+              <div className="grid gap-3">
+                <ThemeToggle className="w-full" />
+              </div>
             </div>
           </div>
           <SheetFooter>

@@ -10,7 +10,7 @@ export const useLogin = () => {
     mutationFn: doLogin,
     onSuccess: (data) => {
       login({ username: data.username, userId: data.userId }, data.token);
-      navigate("/snippets");
+      navigate("/");
     },
     onError: (err) => {
       console.error(`Error logging in: ${err}`);
