@@ -35,6 +35,24 @@ export interface UpdateSnippetParams {
   id: string;
   data: UpdateSnippet;
 }
+export interface SearchSnippetParams {
+  query?: string;
+  language?: (typeof availableLanguages)[keyof typeof availableLanguages];
+  sortBy?: "createdAt" | "updatedAt" | "title";
+  sortOrder?: "asc" | "desc";
+  page?: number;
+  pageSize?: number;
+  createdAfter?: string;
+  createdBefore?: string;
+  tags?: string[];
+}
+export interface SearchResults {
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  snippets: Snippet[];
+}
 export const availableThemes = [
   "github",
   "github-dark",

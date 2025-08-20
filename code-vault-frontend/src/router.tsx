@@ -11,6 +11,7 @@ import {
 } from "./features/snippets/loaders";
 import { authRouteLoader, protectedRouteLoader } from "./lib/auth";
 import SnippetDetailPage from "./pages/SnippetDetailPage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 export const createRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
@@ -45,6 +46,11 @@ export const createRouter = (queryClient: QueryClient) =>
               path: "snippets/:id",
               loader: snippetDetailLoader(queryClient),
               element: <SnippetDetailPage />,
+            },
+            {
+              path: "search",
+
+              element: <SearchResultsPage />,
             },
           ],
         },

@@ -16,11 +16,15 @@ import { ProfileDisplay } from "./ProfileDisplay";
 import { EditorSettingsDialog } from "./EditorSettingsDialog";
 import { CodeBlockSettingsDialog } from "./CodeBlockSettingsDialog";
 import { Button } from "./ui/button";
+import { SearchBar } from "../features/snippets/components/SearchBar";
 const RootLayout = () => {
+  //todo use link instead of button
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-background font-sans antialiased ">
+    <div className="min-h-screen bg-background font-sans antialiased">
+      <SearchBar className="relative top-4 left-1/2 transform -translate-x-1/2 max-w-lg w-full z-50" />
+
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger className=" fixed top-2 left-2 z-50 rounded shadow hover:text-muted-foreground/80 w-fit h-fit p-2">
           <Menu className="size-5" />
@@ -29,10 +33,17 @@ const RootLayout = () => {
           <SheetHeader>
             <SheetTitle>Settings</SheetTitle>
           </SheetHeader>
-          <div className="grid flex-1 auto-rows-min gap-4 px-4">
+          <div className="grid flex-1 auto-rows-min gap-2 px-4">
             <div className="grid gap-3">
               <ProfileDisplay />
             </div>
+            <Button
+              className="rounded-none hover:bg-background cursor-pointer justify-start  dark:hover:bg-background text-md "
+              variant="ghost"
+              onClick={() => navigate("/")}
+            >
+              Home
+            </Button>
             <Button
               className="rounded-none hover:bg-background cursor-pointer justify-start  dark:hover:bg-background text-md "
               variant="ghost"
